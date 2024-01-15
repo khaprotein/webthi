@@ -1,0 +1,28 @@
+﻿
+@model IEnumerable<webde08.Models.SanPham> 
+
+
+@Html.Action("Menu","De08")
+<div class="products-catagories-area clearfix">
+    <div class="amado-pro-catagory clearfix">
+
+        @foreach (var sp in Model)
+        {<!-- Single Catagory -->
+                    <div class="single-products-catagory clearfix">
+                        <a href="@Url.Action("Update","De08",new { id =sp.MaSanPham})">
+                            <img src="~/Content/img/bg-img/@sp.AnhDaiDien" alt="">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                                <div class="line"></div>
+                                <p>From @sp.DonGiaBanNhoNhat</p>
+                                <h4>@sp.TenSanPham</h4>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    }
+
+
+
+    </div>
+</div>

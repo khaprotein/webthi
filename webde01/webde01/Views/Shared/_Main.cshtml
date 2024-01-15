@@ -1,0 +1,71 @@
+﻿@model IEnumerable<webde01.Models.SanPham>
+
+
+@{ 
+    webde01.Models.QLBanQuanAo_01Entities db = new webde01.Models.QLBanQuanAo_01Entities();
+
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <div class="section_title new_arrivals_title">
+                <h2>New Arrivals</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col text-center">
+            <div class="new_arrivals_sorting">
+                <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                    <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+                    @foreach (var pl in db.PhanLoais.ToList())
+                    {
+                        <li id="@pl.MaPhanLoai" class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter="#">@pl.PhanLoaiChinh</li>
+                    }
+                   </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                @foreach (var sp in Model)
+                {
+                    <!-- Product 1 -->
+
+                    <div class="product-item men">
+                        <div class="product discount product_filter">
+                            <div class="product_image">
+                                <img src="~/Content/images/@sp.AnhDaiDien" alt="">
+                            </div>
+                            <div class="favorite favorite_left"></div>
+                            <div class="product_info">
+                                <h6 class="product_name"><a href="single.html">@sp.TenSanPham</a></h6>
+                                <div class="product_price">@sp.DonGiaBanNhoNhat<span>@sp.DonGiaBanLonNhat</span></div>
+                            </div>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
+                    </div>
+                }
+            </div>
+             <a class="alert-danger" href="@Url.Action("Them","De01")">Thêm mới </a> 
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("li").click(function (e) {
+        var id = $(this).attr("id");
+        $.ajax({
+            url: "ProductID",
+            data: { mapl: id },
+            success: function (response) {
+                $("div.new_arrivals").html(response)
+            }
+        });
+    });
+</script>
